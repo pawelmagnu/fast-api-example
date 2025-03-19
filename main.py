@@ -50,7 +50,7 @@ class BookUpdate(BaseModel):
 @app.post("/books/")
 def add_book(book: BookCreate, db: Session = Depends(get_db)):
     with db as session:
-        db_book = Book(**book.dict())
+        db_book = Book(serial_number=book.serial_number, title=book.title, author=book.author)
         session.add(db_book)
         session.commit()
         session.refresh(db_book)
